@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+html, body {
+      background-image: url(polat.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    #myButton {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: url(isk.png) no-repeat;
+      background-position: center center;
+      background-size: contain;
+      width: 200px; /* Adjust the width to match your button image */
+      height: 200px; /* Adjust the height to match your button image */
+      border: none;
+      cursor: crosshair;
+    }
+    
+    #counter {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      font-size: 50px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <p id="counter">Öldürme Sayısı: 0</p>
+  <audio id="backgroundMusic" src="music.mp3" loop></audio>
+  <button id="myButton" onclick="moveButton()"></button>
+  <audio id="buttonSound" src="shootAudio.mp3"></audio>
+
+  <script>
+    var backgroundMusic = document.getElementById("backgroundMusic");
+    var buttonSound = document.getElementById("buttonSound");
+    var myButton = document.getElementById("myButton");
+    let counter = 0;
+    myButton.addEventListener("click", function() {
+      playButtonSound();
+      backgroundMusic.play();
+      counter++;
+      document.getElementById("counter").innerHTML = "Öldürme Sayısı: " + counter;
+    });
+
+    function moveButton() {
+      var button = document.getElementById("myButton");
+      var buttonWidth = button.offsetWidth;
+      var buttonHeight = button.offsetHeight;
+      var windowWidth = window.innerWidth;
+      var windowHeight = window.innerHeight;
+
+      var maxX = windowWidth - buttonWidth;
+      var maxY = windowHeight - buttonHeight;
+
+      var randomX = Math.floor(Math.random() * maxX);
+      var randomY = Math.floor(Math.random() * maxY);
+
+      button.style.left = randomX + "px";
+      button.style.top = randomY + "px";
+    }
+    
+    function playButtonSound() {
+      buttonSound.currentTime = 0;
+      buttonSound.play();
+    }
+
+  </script>
+</body>
+</html>
